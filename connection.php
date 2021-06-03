@@ -6,11 +6,10 @@ function dbConnect() {
         $password = "mysql";
         $conn = new PDO("mysql:host=$servername;dbname=to_do_list", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "Connected successfully";
         return $conn;
 
     } catch (PDOException $e) {
-        echo "Connection failed: " . $e->getMessage();
+        echo "<div id='error'><h3>Error while connecting with database: ". $e->getMessage(). "</h3></div>";
     }
 }
 

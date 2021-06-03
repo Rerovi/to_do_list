@@ -1,24 +1,58 @@
 <?
+
+use http\Params;
+
 require "../connection.php";
 require "head.php";
-$db = dbConnect();
-$idk = 0;
 
-$stmt = $db->prepare("SELECT *  FROM list");
-$stmt->execute();
-echo "<br>";
-$data = $stmt->fetchAll();
+$count = 0;
+
+function dbQuery ($q, $d){
+    global $data;
+    $db = dbConnect();
+    $stmt = $db->prepare($q);
+    if (empty($d)) {
+        $stmt->execute();
+    } else {
+        $stmt->execute($d);
+    }
+    $data = $stmt->fetchAll();
+}
+function gatherList () {
+    global $data;
+    $sql = "SELECT * FROM `list`";
+    $d = 0;
+
+    dbQuery($sql, $d);
+    $GLOBALS["list"] =  $data;
+}
+
+function gatherTasks () {
+    global  $data;
+    $sql = "SELECT * FROM `tasks`";
+    $d = 0;
+
+    dbQuery($sql, $d);
+    $GLOBALS["tasks"] =  $data;
+}
+
+gatherList();
+gatherTasks();
+
+
 
 echo "<br><br>";
 
-foreach ($data as $item) {
-    echo "<div class='list' id='list-$idk'>
-    <h3>".$data[$idk][1]."</h3>
+foreach ($GLOBALS["list"] as $item) {
+    echo "<div class='list' id='list-$count'>
+    <h3>" . $GLOBALS["list"][$count][1] . "</h3>
     <ul>";
-    
+
     echo "</ul>
     </div>";
-    $idk++;
+    $count++;
 }
+
+
 
 require "foot.php";

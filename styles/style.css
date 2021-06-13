@@ -1,3 +1,36 @@
 ul {
     list-style-type: none;
+    padding: 0;
+}
+
+a {
+    all: unset;
+}
+
+.lists {
+    border: 1px solid red;
+    overflow: auto;
+    height: 75%;
+}
+
+.plus-container {
+    margin: auto;
+    height: 75%;
+}
+
+#container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+#plus {
+    width: auto;
+}
+
+#description {
+    margin: 0;
+    width: 500px;
+    height: 200px;
+    resize: none;
 }

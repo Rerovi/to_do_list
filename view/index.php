@@ -1,58 +1,33 @@
 <?
-
-use http\Params;
-
-require "../connection.php";
 require "head.php";
+require "../functions.php";
 
 $count = 0;
+$tcount = 0;
+$li = array();
 
-function dbQuery ($q, $d){
-    global $data;
-    $db = dbConnect();
-    $stmt = $db->prepare($q);
-    if (empty($d)) {
-        $stmt->execute();
-    } else {
-        $stmt->execute($d);
+
+
+$list = gatherList();
+$tasks = gatherTasks();
+
+foreach ($list as $item) {
+    echo "<div class='lists' id='list-$count'>
+    <h2>" . $item[1] . "</h2><div class='tasks'>";
+    foreach ($tasks as $task) {
+        if ($task[0] = $count) {
+            print_r($task[0]);
+            echo "<div class='task'><ul><li class='listItem'><b>Task: </b>" . $task[2] . "</li>";
+            echo "<li class='listItem'><b>Duration: </b>" . $task[4] . " Minutes</li>";
+            echo "<li class='listItem'><b>Description: </b>" . $task[3] . "</li>";
+            echo "<li class='listItem'><b>Status: </b>" . $task[5] . "</li></ul></div>";
+        }
     }
-    $data = $stmt->fetchAll();
-}
-function gatherList () {
-    global $data;
-    $sql = "SELECT * FROM `list`";
-    $d = 0;
 
-    dbQuery($sql, $d);
-    $GLOBALS["list"] =  $data;
-}
-
-function gatherTasks () {
-    global  $data;
-    $sql = "SELECT * FROM `tasks`";
-    $d = 0;
-
-    dbQuery($sql, $d);
-    $GLOBALS["tasks"] =  $data;
-}
-
-gatherList();
-gatherTasks();
-
-
-
-echo "<br><br>";
-
-foreach ($GLOBALS["list"] as $item) {
-    echo "<div class='list' id='list-$count'>
-    <h3>" . $GLOBALS["list"][$count][1] . "</h3>
-    <ul>";
-
-    echo "</ul>
-    </div>";
+    echo "</div></div>";
     $count++;
 }
-
+echo "<div id='plus-container'><a id='plus' class='fas fa-plus' href='createForm.php' title='Add a list'></a></div>";
 
 
 require "foot.php";

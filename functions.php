@@ -35,26 +35,32 @@ function gatherTasks() {
     return $tasks = dbQuery($sql, $d);
 }
 
+function gatherTask($id) {
+    $sql = "SELECT * FROM tasks WHERE id =". $id;
+    $d = 0;
+
+    return $task = dbQuery($sql, $d);
+}
+
 function addList($v) {
     $sql = "INSERT INTO `list` (`name`) VALUES ('{$v}')";
     insertDb($sql);
 }
 
 function addTask($v) {
-    $sql = "SELECT * FROM list ORDER BY id DESC";
-    $d = 0;
+    if (isset($v["listId"])) {
+        $listId = $v["listId"];
+    } else {
+        $sql = "SELECT * FROM list ORDER BY id DESC";
+        $d = 0;
 
-    $gather = dbQuery($sql, $d);
-    $listId =  $gather[0][0];
+        $gather = dbQuery($sql, $d);
+        $listId = $gather[0][0];
+    }
 
-
-    $sql = "INSERT INTO `tasks` ( `list_id`, `name`, `description`, `length`, `status`) VALUES ('{$listId}', '{$v["task-name"]}', '{$v["description"]}', '{$v["duration"]}', '0')";
+    $sql = "INSERT INTO `tasks` ( `list_id`, `name`, `description`, `length`, `status`) 
+            VALUES ('{$listId}', '{$v["task-name"]}', '{$v["description"]}', '{$v["duration"]}', '0')";
 
     insertDb($sql);
 }
 
-//function addList($d) {
-//    $sql = "INSERT INTO `tasks` (, `list_id`, `name`, `description`, `length`, `status`) VALUES ('{$d}', '2', 'janken', 'Heel hard janken enzo', '50', '0')";
-//}
-
-//INSERT INTO `tasks` (`id`, `list_id`, `name`, `description`, `length`, `status`) VALUES ('2', '2', 'janken', 'Heel hard janken enzo\r\n', '50', '0');

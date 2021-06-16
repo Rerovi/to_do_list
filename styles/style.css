@@ -1,5 +1,5 @@
 * {
-    color: white;
+    list-style-type: none;
 }
 html {
     background-image: url("../img/bg.jpg");
@@ -9,24 +9,26 @@ html {
     background-size: cover;
 }
 ul {
-    list-style-type: none;
     padding: 0;
 }
 
 a {
     all: unset;
+    color: white;
 }
 
 .lists {
     border: 1px solid red;
     background-color: #7a7a7a;
     opacity: 0.8;
-    overflow: auto;
-    height: 90%;
+    overflow: hidden;
+    height: 18em;
+    color: white;
 }
 
 .lists:hover {
     opacity: 0.9;
+    overflow: auto;
 }
 
 .plus-container {
@@ -34,19 +36,29 @@ a {
     height: 75%;
 }
 
+#edit-button {
+    margin-left: 18em;
+}
+
+
+
 #container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 1em;
 }
 
-#plus {
-    width: auto;
+#create-container {
+    color: white;
+}
+
+#plus-container {
+    margin: auto;
 }
 
 #description {
     margin: 0;
-    width: 500px;
-    height: 200px;
+    width: 31.25em;
+    height: 12.5em;
     resize: none;
 }

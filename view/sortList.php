@@ -6,12 +6,10 @@ require '../functions.php';
 $listId = $_GET["list"];
 $sort = $_GET["sort"];
 
-$list = gatherList($listId);
+$listName = gatherListName($listId);
 $tasks = sortTask($listId, $sort);
 
-
-
-echo '<div class="container"><h1>' . $list[0][1] . '</h1><hr id="hr1">';
+echo '<div class="container"><h1>' . $listName[0]["name"] . '</h1><hr id="hr1">';
 foreach ($tasks as $task) {
     echo "<strong><span>Task: </strong>" . $task[2] . "</span><br>
                <strong><span>Duration:</strong> " . $task[4] . " Minutes</span><br>

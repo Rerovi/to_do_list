@@ -59,6 +59,14 @@ function gatherList($id)
     return $task = dbQuery($sql, $d);
 }
 
+function gatherListName($id) {
+    $sql = "SELECT name FROM list WHERE id =" . $id;
+    $d = 0;
+
+    return $name = dbQuery($sql, $d);
+}
+
+
 //Add functions
 
 function addList($v)
@@ -134,8 +142,6 @@ function checkStatus($s)
 
 function sortTask($id, $sort)
 {
-//    $task = gatherTask($id);
-//    $list = gatherList($id);
     if ($sort == 1) {
         $sql = "SELECT * FROM `tasks` WHERE `list_id` = {$id} ORDER BY `tasks`.`length` ASC";
         $d = 0;
